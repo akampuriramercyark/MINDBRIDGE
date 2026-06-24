@@ -24,8 +24,10 @@ export async function POST(req: Request) {
       ? AFFIRMATION_PROMPT + mood
       : AFFIRMATION_PROMPT + "General wellness and empowerment";
 
+    console.log('Attempting to use model: gemini-1.5-flash-latest');
+
     const { text } = await generateText({
-      model: google('gemini-1.5-flash'),
+      model: google('gemini-1.5-flash-latest'),
       prompt: prompt,
     });
 
