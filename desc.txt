@@ -1,0 +1,5 @@
+[
+  {
+    "description": "Initialize a git repository in /home/team/shared/mindbridge, configure a production-ready .gitignore, and push the entire codebase to a new GitHub repository named 'MINDBRIDGE' under the account 'akampuriramercyark'. Use the provided Personal Access Token for authentication. Ensure all recent 'premium sweep' changes from the designer are included."
+  }
+]

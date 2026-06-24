@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       : AFFIRMATION_PROMPT + "General wellness and empowerment";
 
     const { text } = await generateText({
-      model: google('models/gemini-1.5-flash'),
+      model: google('gemini-1.5-flash'),
       prompt: prompt,
     });
 

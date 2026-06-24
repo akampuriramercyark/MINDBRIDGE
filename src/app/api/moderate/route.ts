@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     }
 
     const { text } = await generateText({
-      model: google('models/gemini-1.5-flash'),
+      model: google('gemini-1.5-flash'),
       prompt: MODERATION_PROMPT + content,
     });
 

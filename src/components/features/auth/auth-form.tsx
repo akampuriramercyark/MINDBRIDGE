@@ -1,10 +1,7 @@
-'use client'
-
 import React, { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { GlassCard } from '@/components/ui/GlassCard'
@@ -28,15 +25,22 @@ export function AuthForm({ mode }: AuthFormProps) {
 
     try {
       if (mode === 'signup') {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
             emailRedirectTo: `${window.location.origin}/auth/callback`,
           },
         })
+        
         if (error) throw error
-        alert('Check your email for the confirmation link!')
+        
+        // If "Confirm Email" is OFF in Supabase, data.session will exist immediately
+        if (data.session) {
+          router.push('/dashboard')
+        } else {
+          alert('Account created! Please check your email for a confirmation link.')
+        }
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
@@ -46,7 +50,8 @@ export function AuthForm({ mode }: AuthFormProps) {
         router.push('/dashboard')
       }
     } catch (err: any) {
-      setError(err.message || 'An error occurred')
+      console.error('Auth Error:', err)
+      setError(err.message || 'An error occurred during authentication')
     } finally {
       setLoading(false)
     }

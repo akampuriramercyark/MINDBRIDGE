@@ -2,11 +2,13 @@
 
 import React, { useState } from 'react'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { MessageCircle, Heart, Share2, MoreHorizontal, User } from 'lucide-react'
+import { MessageCircle, Heart, Share2, MoreHorizontal, User, ShieldAlert, Check } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { cn } from '@/lib/utils'
 import { CommentSection } from './comment-section'
 import { motion, AnimatePresence } from 'framer-motion'
+import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/context/auth-context'
 
 interface PostCardProps {
   post: {
@@ -25,17 +27,58 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, index = 0 }: PostCardProps) {
+  const { user } = useAuth()
   const [liked, setLiked] = useState(false)
   const [likesCount, setLikesCount] = useState(post.likes_count)
   const [showComments, setShowComments] = useState(false)
+  const [isReporting, setIsReporting] = useState(false)
+  const [reported, setReported] = useState(false)
+  const [showReportConfirm, setShowReportConfirm] = useState(false)
 
-  const handleLike = () => {
-    if (liked) {
-      setLikesCount(likesCount - 1)
-    } else {
-      setLikesCount(likesCount + 1)
+  const handleLike = async () => {
+    const newLikedState = !liked
+    const newCount = newLikedState ? likesCount + 1 : Math.max(0, likesCount - 1)
+    
+    // Optimistic update
+    setLiked(newLikedState)
+    setLikesCount(newCount)
+
+    try {
+      const { error } = await (supabase
+        .from('community_posts') as any)
+        .update({ likes_count: newCount })
+        .eq('id', post.id)
+      
+      if (error) throw error
+    } catch (error: any) {
+      console.error('Error updating likes:', error.message)
+      // Rollback on error
+      setLiked(!newLikedState)
+      setLikesCount(likesCount)
     }
-    setLiked(!liked)
+  }
+
+  const handleReport = async (reason: string) => {
+    if (!user) return
+    setIsReporting(true)
+    try {
+      const { error } = await (supabase
+        .from('moderation_reports') as any)
+        .insert({
+          reporter_id: user.id,
+          post_id: post.id,
+          reason: reason
+        })
+      
+      if (error) throw error
+      setReported(true)
+      setShowReportConfirm(false)
+    } catch (error: any) {
+      console.error('Error reporting post:', error.message)
+      alert('Failed to submit report. Please try again.')
+    } finally {
+      setIsReporting(false)
+    }
   }
 
   return (
@@ -70,9 +113,47 @@ export function PostCard({ post, index = 0 }: PostCardProps) {
             <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] uppercase tracking-wider text-brand-blue font-bold">
               {post.category}
             </span>
-            <button className="text-white/20 hover:text-white transition-colors">
-              <MoreHorizontal size={18} />
-            </button>
+            <div className="relative">
+              <button 
+                onClick={() => setShowReportConfirm(!showReportConfirm)}
+                className={cn(
+                  "transition-colors p-1 rounded-md",
+                  reported ? "text-red-400" : "text-white/20 hover:text-white hover:bg-white/5"
+                )}
+                disabled={reported}
+              >
+                {reported ? <ShieldAlert size={18} /> : <MoreHorizontal size={18} />}
+              </button>
+              
+              <AnimatePresence>
+                {showReportConfirm && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                    className="absolute right-0 mt-2 w-48 z-50"
+                  >
+                    <GlassCard className="p-2 border-white/10 shadow-2xl bg-slate-900/90 backdrop-blur-xl">
+                      <p className="text-[10px] text-white/50 px-2 py-1 uppercase font-bold tracking-tighter">Report Post</p>
+                      <button 
+                        onClick={() => handleReport('Inappropriate Content')}
+                        className="w-full text-left px-3 py-2 text-xs text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2"
+                      >
+                        <ShieldAlert size={14} className="text-red-400" />
+                        Inappropriate
+                      </button>
+                      <button 
+                        onClick={() => handleReport('Spam or Harassment')}
+                        className="w-full text-left px-3 py-2 text-xs text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2"
+                      >
+                        <ShieldAlert size={14} className="text-orange-400" />
+                        Harassment
+                      </button>
+                    </GlassCard>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
 

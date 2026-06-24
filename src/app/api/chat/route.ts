@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 
     // 3. Prepare AI Response with Streaming
     const result = streamText({
-      model: google('models/gemini-1.5-flash'),
+      model: google('gemini-1.5-flash'),
       system: SYSTEM_PROMPT,
       messages,
       onFinish: async (event) => {

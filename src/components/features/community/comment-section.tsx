@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/context/auth-context'
 import { moderateContent, detectCrisis } from '@/services/ai-service'
 import { formatDistanceToNow } from 'date-fns'
-import { Send, Loader2, User } from 'lucide-react'
+import { Send, Loader2, User, ShieldAlert } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 
@@ -19,6 +19,7 @@ export function CommentSection({ postId }: CommentSectionProps) {
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
+  const [reportedComments, setReportedComments] = useState<string[]>([])
 
   const fetchComments = useCallback(async () => {
     try {
@@ -40,6 +41,24 @@ export function CommentSection({ postId }: CommentSectionProps) {
   useEffect(() => {
     fetchComments()
   }, [fetchComments])
+
+  const handleReportComment = async (commentId: string) => {
+    if (!user) return
+    try {
+      const { error } = await (supabase
+        .from('moderation_reports') as any)
+        .insert({
+          reporter_id: user.id,
+          comment_id: commentId,
+          reason: 'Inappropriate Comment'
+        })
+      
+      if (error) throw error
+      setReportedComments([...reportedComments, commentId])
+    } catch (error: any) {
+      console.error('Error reporting comment:', error.message)
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -101,9 +120,21 @@ export function CommentSection({ postId }: CommentSectionProps) {
               <div className="flex-1 bg-white/5 rounded-2xl px-4 py-3 border border-white/5 group relative">
                 <div className="flex justify-between items-center mb-1.5">
                   <span className="text-xs font-bold text-white/90">Anonymous</span>
-                  <span className="text-[10px] text-white/30 font-medium">
-                    {formatDistanceToNow(new Date(comment.created_at), { addSuffix: true })}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-[10px] text-white/30 font-medium">
+                      {formatDistanceToNow(new Date(comment.created_at), { addSuffix: true })}
+                    </span>
+                    <button 
+                      onClick={() => handleReportComment(comment.id)}
+                      className={cn(
+                        "opacity-0 group-hover:opacity-100 transition-opacity",
+                        reportedComments.includes(comment.id) ? "text-red-400 opacity-100" : "text-white/20 hover:text-white"
+                      )}
+                      disabled={reportedComments.includes(comment.id)}
+                    >
+                      <ShieldAlert size={12} />
+                    </button>
+                  </div>
                 </div>
                 <p className="text-[13px] text-white/70 leading-relaxed">{comment.content}</p>
               </div>

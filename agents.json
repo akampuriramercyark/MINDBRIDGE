@@ -1,0 +1,22 @@
+[
+  {
+    "id": "agent-lead",
+    "role": "lead",
+    "capabilities": "Team management, task planning, delegation, and monitoring"
+  },
+  {
+    "id": "agent-architect",
+    "role": "architect",
+    "capabilities": "Full-stack architecture, Next.js, Tailwind CSS, Supabase/Firebase integration. Responsible for project structure and backend."
+  },
+  {
+    "id": "agent-designer",
+    "role": "designer",
+    "capabilities": "UI/UX design, Tailwind CSS, Glassmorphism, animations, premium wellness aesthetic. Responsible for the visual feel and frontend components."
+  },
+  {
+    "id": "agent-ai-engineer",
+    "role": "ai_engineer",
+    "capabilities": "AI integration, LLM prompting, wellness chat logic, emotional support features. Responsible for the AI Wellness Companion."
+  }
+]
