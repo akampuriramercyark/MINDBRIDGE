@@ -33,21 +33,31 @@ export async function POST(req: Request) {
       });
     }
 
-    // 2. Save User Message to Database
-    await saveMessage(sessionId, 'user', lastMessage.content);
+    // 2. Save User Message to Database (Non-blocking)
+    saveMessage(sessionId, 'user', lastMessage.content).catch(err => 
+      console.error('Failed to save user message:', err)
+    );
 
-    // 3. Prepare AI Response with Streaming
-    const result = streamText({
-      model: google('gemini-1.5-flash-latest'),
-      system: SYSTEM_PROMPT,
-      messages,
-      onFinish: async (event) => {
-        // 4. Save AI Response to Database on Finish
-        await saveMessage(sessionId, 'ai', event.text);
-      },
-    });
+    // 3. Prepare AI Response
+    try {
+      const result = await streamText({
+        model: google('gemini-1.5-flash-latest'),
+        system: SYSTEM_PROMPT,
+        messages,
+      });
 
-    return result.toTextStreamResponse();
+      return result.toDataStreamResponse();
+    } catch (aiError: any) {
+      console.error('Gemini API Error:', aiError);
+      return new Response(JSON.stringify({ 
+        error: 'AI Provider Error', 
+        details: aiError.message,
+        code: aiError.statusCode 
+      }), {
+        status: 502,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
   } catch (error) {
     console.error('Chat API Error:', error);
