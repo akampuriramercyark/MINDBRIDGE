@@ -12,42 +12,52 @@ export default function AIChatPage() {
   const { user } = useAuth()
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
   useEffect(() => {
     async function getOrCreateSession() {
       if (!user) return
 
-      const { data, error } = await (supabase
-        .from('chat_sessions')
-        .select('id')
-        .eq('user_id', user.id)
-        .order('updated_at', { ascending: false })
-        .limit(1) as any)
-
-      const sessions = data as { id: string }[] | null
-
-      if (error) {
-        console.error('Error fetching session:', error)
-      }
-
-      if (sessions && sessions.length > 0) {
-        setSessionId(sessions[0].id)
-        setLoading(false)
-      } else {
-        const { data: newSession, error: createError } = await (supabase
+      try {
+        const { data, error } = await (supabase
           .from('chat_sessions')
-          .insert({
-            user_id: user.id,
-            title: 'Wellness Conversation'
-          } as any)
-          .select()
-          .single() as any)
+          .select('id')
+          .eq('user_id', user.id)
+          .order('updated_at', { ascending: false })
+          .limit(1) as any)
 
-        if (createError) {
-          console.error('Error creating session:', createError)
-        } else {
-          setSessionId(newSession.id)
+        if (error) {
+          console.error('Error fetching session:', error)
+          setErrorMsg(`Database error: ${error.message}`)
+          setLoading(false)
+          return
         }
+
+        const sessions = data as { id: string }[] | null
+
+        if (sessions && sessions.length > 0) {
+          setSessionId(sessions[0].id)
+          setLoading(false)
+        } else {
+          const { data: newSession, error: createError } = await (supabase
+            .from('chat_sessions')
+            .insert({
+              user_id: user.id,
+              title: 'Wellness Conversation'
+            } as any)
+            .select()
+            .single() as any)
+
+          if (createError) {
+            console.error('Error creating session:', createError)
+            setErrorMsg(`Failed to create session: ${createError.message}`)
+          } else {
+            setSessionId(newSession.id)
+          }
+          setLoading(false)
+        }
+      } catch (err: any) {
+        setErrorMsg(`Unexpected error: ${err.message}`)
         setLoading(false)
       }
     }
@@ -74,11 +84,23 @@ export default function AIChatPage() {
         {/* Chat Area */}
         <main className="flex-1 p-8 flex flex-col items-center justify-center max-w-4xl mx-auto w-full">
           {loading ? (
-            <div className="text-white/40 animate-pulse">Initializing Sanyu...</div>
+            <div className="text-white/40 animate-pulse text-center">
+              <div className="w-12 h-12 border-4 border-brand-purple border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              Initializing Sanyu...
+            </div>
           ) : sessionId ? (
             <ChatWindow sessionId={sessionId} />
           ) : (
-            <div className="text-red-400">Failed to initialize chat session. Please try again.</div>
+            <div className="text-center p-8 bg-red-500/10 border border-red-500/20 rounded-2xl">
+              <p className="text-red-400 font-bold mb-2">Connection Error</p>
+              <p className="text-red-300/70 text-sm mb-4">{errorMsg || "Failed to initialize chat session."}</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="px-6 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-200 rounded-xl transition-all text-xs"
+              >
+                Try Again
+              </button>
+            </div>
           )}
           
           <div className="mt-8 p-6 rounded-2xl bg-white/5 border border-white/10 w-full">
