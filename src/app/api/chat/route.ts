@@ -40,13 +40,13 @@ export async function POST(req: Request) {
 
     // 3. Prepare AI Response
     try {
-      const result = await streamText({
+      const result = streamText({
         model: google('gemini-1.5-flash-latest'),
         system: SYSTEM_PROMPT,
         messages,
       });
 
-      return result.toDataStreamResponse();
+      return result.toTextStreamResponse();
     } catch (aiError: any) {
       console.error('Gemini API Error:', aiError);
       return new Response(JSON.stringify({ 

@@ -49,7 +49,7 @@ export async function getDailyAffirmation(): Promise<string> {
     if (dbAffirmations && dbAffirmations.length > 0) {
       const today = new Date();
       const index = (today.getFullYear() * 365 + (today.getMonth() + 1) * 31 + today.getDate()) % dbAffirmations.length;
-      const content = dbAffirmations[index].content as any;
+      const content = (dbAffirmations as any)[index].content;
       return content.text || content.message || AFFIRMATIONS[0];
     }
   } catch (error) {
@@ -212,7 +212,7 @@ export async function getPersonalizedEncouragement(userId: string): Promise<stri
       .limit(1)
       .single();
 
-    return await generateAIAffirmation(latestMood?.mood);
+    return await generateAIAffirmation((latestMood as any)?.mood);
   } catch (error) {
     console.error('Error in getPersonalizedEncouragement:', error);
     return "You're not alone on this journey. We're here with you.";
