@@ -79,7 +79,7 @@ export const HowItWorks: React.FC = () => {
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">Built for African Youth, by those who understand.</h3>
               <p className="text-lg text-white/70 leading-relaxed font-light">
-                MindBridge is built specifically for our context. We understand the unique pressures of family expectations, 
+                Harmony Hub is built specifically for our context. We understand the unique pressures of family expectations, 
                 career uncertainty, and the digital age that you face every day.
               </p>
               <div className="flex gap-5 items-center">

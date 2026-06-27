@@ -40,7 +40,7 @@ export default function DashboardPage() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-purple to-brand-blue flex items-center justify-center shadow-lg">
               <span className="text-white font-bold text-sm">M</span>
             </div>
-            <span className="text-white font-bold text-xl tracking-tight">MindBridge</span>
+            <span className="text-white font-bold text-xl tracking-tight">Harmony Hub</span>
           </Link>
 
           <nav className="flex-1 space-y-2 overflow-y-auto pr-2 custom-scrollbar">
@@ -96,7 +96,7 @@ export default function DashboardPage() {
                   <MessageCircle size={24} />
                 </div>
                 <h3 className="text-xl font-bold">Talk to AI</h3>
-                <p className="text-white/60">Need someone to listen? MindBridge AI is here for you 24/7.</p>
+                <p className="text-white/60">Need someone to listen? Harmony Hub AI is here for you 24/7.</p>
                 <Link href="/ai-chat" className="inline-block text-brand-purple font-semibold hover:underline">Start Chatting →</Link>
               </div>
 

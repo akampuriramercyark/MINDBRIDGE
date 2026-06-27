@@ -49,7 +49,7 @@ export const LandingPage: React.FC = () => {
              <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to feel <br /><span className="text-gradient">lighter?</span></h2>
              <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
                Join thousands of young people across Uganda who are finding peace, 
-               clarity, and support with MindBridge.
+               clarity, and support with Harmony Hub.
              </p>
              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button className="bg-white text-brand-navy px-10 py-4 rounded-full font-bold text-lg hover:bg-brand-lavender transition-all cursor-pointer shadow-xl">

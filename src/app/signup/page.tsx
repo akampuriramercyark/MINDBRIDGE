@@ -13,7 +13,7 @@ export default function SignupPage() {
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-purple to-brand-blue flex items-center justify-center shadow-lg shadow-brand-purple/20">
             <span className="text-white font-bold text-xl">M</span>
           </div>
-          <span className="text-white font-bold text-2xl tracking-tight">MindBridge</span>
+          <span className="text-white font-bold text-2xl tracking-tight">Harmony Hub</span>
         </Link>
 
         <AuthForm mode="signup" />

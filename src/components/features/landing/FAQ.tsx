@@ -7,7 +7,7 @@ import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   {
-    question: "Is MindBridge really anonymous?",
+    question: "Is Harmony Hub really anonymous?",
     answer: "Yes. In our community spaces, your identity is completely hidden. Your AI conversations are private and encrypted. We prioritize your emotional safety above all else."
   },
   {
@@ -15,12 +15,12 @@ const faqs = [
     answer: "Our AI, Sanyu, is trained in supportive communication and emotional grounding techniques. It doesn't replace a therapist, but it's available 24/7 to listen, provide coping strategies, and help you navigate your feelings."
   },
   {
-    question: "Is MindBridge free to use?",
+    question: "Is Harmony Hub free to use?",
     answer: "We offer a generous free tier that includes AI support and community access. Premium features like advanced analytics and direct professional discovery may have associated costs."
   },
   {
     question: "What happens in a crisis?",
-    answer: "MindBridge is not a crisis service. If you are in immediate danger, our system will detect certain keywords and immediately provide you with local Ugandan emergency contacts and professional help redirects."
+    answer: "Harmony Hub is not a crisis service. If you are in immediate danger, our system will detect certain keywords and immediately provide you with local Ugandan emergency contacts and professional help redirects."
   }
 ];
 
@@ -37,7 +37,7 @@ export const FAQ: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold mb-4 text-white">Common <span className="text-gradient">Questions.</span></h2>
-          <p className="text-white/60 font-light">Everything you need to know about MindBridge.</p>
+          <p className="text-white/60 font-light">Everything you need to know about Harmony Hub.</p>
         </motion.div>
         
         <div className="space-y-4">

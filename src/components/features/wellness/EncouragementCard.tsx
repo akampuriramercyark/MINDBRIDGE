@@ -14,7 +14,7 @@ interface EncouragementCardProps {
 
 export const EncouragementCard: React.FC<EncouragementCardProps> = ({ 
   text, 
-  author = "MindBridge AI", 
+  author = "Harmony Hub AI", 
   type = 'affirmation',
   delay = 0
 }) => {

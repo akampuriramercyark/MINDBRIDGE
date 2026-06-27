@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MindBridge | You Don't Have To Carry Everything Alone",
-  description: "MindBridge gives young people a safe space for emotional support, AI-powered conversations, wellness tools, and human connection.",
+  title: "Harmony Hub | A safe space for all minds",
+  description: "Harmony Hub is a safe space for all minds. We give young people emotional support through AI-powered conversations, wellness tools, and human connection.",
 };
 
 export default function RootLayout({

@@ -4,7 +4,7 @@ import { generateText } from 'ai';
 export const maxDuration = 30;
 
 const MODERATION_PROMPT = `
-You are a content moderator for MindBridge, an emotional wellness platform for young people in Africa.
+You are a content moderator for Harmony Hub, an emotional wellness platform for young people in Africa.
 Your task is to analyze the following community post and determine if it violates our safety guidelines.
 
 Safety Guidelines:

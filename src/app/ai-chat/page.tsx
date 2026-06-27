@@ -77,7 +77,7 @@ export default function AIChatPage() {
             <div className="w-10 h-10 rounded-2xl bg-brand-purple/20 flex items-center justify-center text-brand-purple">
               <MessageCircle size={24} />
             </div>
-            <h1 className="text-2xl font-bold">MindBridge AI</h1>
+            <h1 className="text-2xl font-bold">Harmony Hub AI</h1>
           </div>
         </header>
 

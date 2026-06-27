@@ -1,7 +1,7 @@
 import { google } from '@ai-sdk/google';
 import { generateText } from 'ai';
 
-const SYSTEM_PROMPT = `You are an AI wellness expert for MindBridge, a platform for Ugandan and African youth. 
+const SYSTEM_PROMPT = `You are an AI wellness expert for Harmony Hub, a platform for Ugandan and African youth. 
 Generate 50 short, powerful, and culturally resonant affirmations. 
 Focus on themes like resilience, overcoming "black tax" pressures, academic success, self-love, and community support. 
 Use Gen Z friendly but respectful language. Occasional local greetings like "Mirembe" or "Webale" are encouraged.
@@ -13,7 +13,7 @@ async function main() {
   // of high-quality examples that fit the criteria.
   
   const affirmations = [
-    "You are doing enough, even when the world asks for more. #MindBridge",
+    "You are doing enough, even when the world asks for more. #Harmony Hub",
     "Your worth is not defined by your 'black tax' or family expectations. You matter.",
     "Mirembe. Peace starts with how you talk to yourself today.",
     "Small steps lead to big change. Keep pushing, you've got this.",

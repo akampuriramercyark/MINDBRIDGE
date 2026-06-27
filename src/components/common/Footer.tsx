@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
             <div className="w-8 h-8 bg-gradient-to-br from-brand-lavender to-brand-blue rounded-lg flex items-center justify-center font-bold text-brand-navy">
               M
             </div>
-            <span className="text-xl font-bold tracking-tight text-white">MindBridge</span>
+            <span className="text-xl font-bold tracking-tight text-white">Harmony Hub</span>
           </div>
           <p className="text-white/60 text-sm leading-relaxed">
             Empowering African youth with AI-driven emotional support and wellness tools. 
@@ -49,7 +49,7 @@ export const Footer: React.FC = () => {
       </div>
       
       <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-        <p>© 2024 MindBridge. All rights reserved.</p>
+        <p>© 2024 Harmony Hub. All rights reserved.</p>
         <div className="flex gap-8">
           <p>Made with 💜 for Uganda</p>
         </div>

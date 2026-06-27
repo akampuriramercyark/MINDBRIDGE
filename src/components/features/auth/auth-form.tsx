@@ -68,7 +68,7 @@ export function AuthForm({ mode }: AuthFormProps) {
     >
       <GlassCard className="p-8 shadow-2xl">
         <h2 className="text-3xl font-bold text-white mb-2 text-center">
-          {mode === 'login' ? 'Welcome Back' : 'Join MindBridge'}
+          {mode === 'login' ? 'Welcome Back' : 'Join Harmony Hub'}
         </h2>
         <p className="text-brand-blue mb-8 text-center">
           {mode === 'login' 

@@ -41,7 +41,7 @@ export const Navbar: React.FC = () => {
             <div className="w-9 h-9 bg-gradient-to-br from-brand-purple to-brand-blue rounded-xl flex items-center justify-center font-bold text-white shadow-lg group-hover:rotate-12 transition-transform duration-300">
               M
             </div>
-            <span className="text-xl font-bold tracking-tight text-white">MindBridge</span>
+            <span className="text-xl font-bold tracking-tight text-white">Harmony Hub</span>
           </Link>
           
           <div className="hidden md:flex items-center gap-8 text-[13px] uppercase tracking-widest font-bold text-white/70">

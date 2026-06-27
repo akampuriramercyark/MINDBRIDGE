@@ -16,7 +16,7 @@ export interface WellnessNotification {
 }
 
 const AFFIRMATIONS = [
-  "You are doing enough, even when the world asks for more. #MindBridge",
+  "You are doing enough, even when the world asks for more. #Harmony Hub",
   "Your worth is not defined by your 'black tax' or family expectations. You matter.",
   "Mirembe. Peace starts with how you talk to yourself today.",
   "Small steps lead to big change. Keep pushing, you've got this.",

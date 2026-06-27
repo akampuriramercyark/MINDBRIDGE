@@ -60,7 +60,7 @@ export const HeroSection: React.FC = () => {
           </motion.h1>
           
           <motion.p variants={itemVariants} className="text-xl text-white/70 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-            MindBridge provides a safe, anonymous space for emotional support, 
+            Harmony Hub is a safe space for all minds. We provide anonymous emotional support, 
             AI-powered conversations, wellness tools, and connection with professional care.
           </motion.p>
           
@@ -115,7 +115,7 @@ export const HeroSection: React.FC = () => {
             <GlassCard className="max-w-[280px] shadow-2xl border-brand-purple/20">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(74,222,128,0.5)]" />
-                <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">MindBridge AI</span>
+                <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Harmony Hub AI</span>
               </div>
               <p className="text-base italic text-white/90 leading-relaxed font-medium">"I'm here for you. How are you feeling today?"</p>
             </GlassCard>
