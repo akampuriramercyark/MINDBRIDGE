@@ -13,10 +13,18 @@ interface ChatWindowProps {
 }
 
 export default function ChatWindow({ sessionId, initialMessages = [] }: ChatWindowProps) {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = (useChat as any)({
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error } = (useChat as any)({
     api: '/api/chat',
     body: { sessionId },
     initialMessages,
+    onResponse: (response: Response) => {
+      if (!response.ok) {
+        console.error('Chat error response:', response);
+      }
+    },
+    onError: (err: Error) => {
+      console.error('Chat error:', err);
+    }
   });
 
   const scrollRef = useRef<HTMLDivElement>(null);

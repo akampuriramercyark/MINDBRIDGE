@@ -94,12 +94,20 @@ export default function AIChatPage() {
             <div className="text-center p-8 bg-red-500/10 border border-red-500/20 rounded-2xl">
               <p className="text-red-400 font-bold mb-2">Connection Error</p>
               <p className="text-red-300/70 text-sm mb-4">{errorMsg || "Failed to initialize chat session."}</p>
-              <button 
-                onClick={() => window.location.reload()}
-                className="px-6 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-200 rounded-xl transition-all text-xs"
-              >
-                Try Again
-              </button>
+              <div className="flex flex-col gap-3 items-center">
+                <button 
+                  onClick={() => setSessionId("bypass-session-" + Date.now())}
+                  className="px-6 py-2 bg-brand-purple hover:bg-brand-purple/80 text-white rounded-xl transition-all text-xs font-bold"
+                >
+                  Start Chat Anyway (Bypass DB)
+                </button>
+                <button 
+                  onClick={() => window.location.reload()}
+                  className="text-white/40 hover:text-white/60 transition-all text-[10px] underline"
+                >
+                  Try Database Again
+                </button>
+              </div>
             </div>
           )}
           
