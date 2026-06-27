@@ -20,14 +20,19 @@ export async function POST(req: Request) {
   try {
     const { mood } = await req.json();
 
+    if (!process.env.GROQ_API_KEY) {
+      return new Response(JSON.stringify({ affirmation: "You are enough, exactly as you are. (Key missing)" }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     const prompt = mood 
       ? AFFIRMATION_PROMPT + mood
       : AFFIRMATION_PROMPT + "General wellness and empowerment";
 
-    console.log('Attempting to use model: llama-3.1-8b-instant');
-
     const { text } = await generateText({
-      model: groq('llama-3.1-8b-instant'),
+      model: groq('llama3-8b-8192'),
       prompt: prompt,
     });
 
@@ -35,10 +40,10 @@ export async function POST(req: Request) {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Affirmation API Error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to generate affirmation' }), {
-      status: 500,
+    return new Response(JSON.stringify({ affirmation: "Keep pushing forward, your potential is limitless. (Error: " + error.message + ")" }), {
+      status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   }
