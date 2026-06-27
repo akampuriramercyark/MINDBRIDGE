@@ -1,4 +1,4 @@
-import { google } from '@ai-sdk/google';
+import { openai } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 import { 
   SYSTEM_PROMPT, 
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
 
     // 3. Generate AI Response (Non-streaming for maximum reliability)
     const { text } = await generateText({
-      model: google('gemini-1.5-flash-latest'),
+      model: openai('gpt-4o-mini'),
       system: SYSTEM_PROMPT,
       messages,
     });

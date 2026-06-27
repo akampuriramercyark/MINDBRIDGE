@@ -1,4 +1,4 @@
-import { google } from '@ai-sdk/google';
+import { openai } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 
 export const maxDuration = 30;
@@ -24,10 +24,10 @@ export async function POST(req: Request) {
       ? AFFIRMATION_PROMPT + mood
       : AFFIRMATION_PROMPT + "General wellness and empowerment";
 
-    console.log('Attempting to use model: gemini-1.5-flash-latest');
+    console.log('Attempting to use model: gpt-4o-mini');
 
     const { text } = await generateText({
-      model: google('gemini-1.5-flash-latest'),
+      model: openai('gpt-4o-mini'),
       prompt: prompt,
     });
 
