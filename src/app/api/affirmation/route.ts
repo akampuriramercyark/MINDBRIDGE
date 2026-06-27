@@ -32,7 +32,7 @@ export async function POST(req: Request) {
       : AFFIRMATION_PROMPT + "General wellness and empowerment";
 
     const { text } = await generateText({
-      model: groq('llama3-8b-8192'),
+      model: groq('llama-3.1-8b-instant'),
       prompt: prompt,
     });
 
