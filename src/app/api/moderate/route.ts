@@ -1,4 +1,4 @@
-import { openai } from '@ai-sdk/openai';
+import { groq } from '@ai-sdk/groq';
 import { generateText } from 'ai';
 
 export const maxDuration = 30;
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     }
 
     const { text } = await generateText({
-      model: openai('gpt-4o-mini'),
+      model: groq('llama-3.1-8b-instant'),
       prompt: MODERATION_PROMPT + content,
     });
 

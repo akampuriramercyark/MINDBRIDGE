@@ -1,4 +1,4 @@
-import { openai } from '@ai-sdk/openai';
+import { groq } from '@ai-sdk/groq';
 import { generateText } from 'ai';
 
 export const maxDuration = 30;
@@ -24,10 +24,10 @@ export async function POST(req: Request) {
       ? AFFIRMATION_PROMPT + mood
       : AFFIRMATION_PROMPT + "General wellness and empowerment";
 
-    console.log('Attempting to use model: gpt-4o-mini');
+    console.log('Attempting to use model: llama-3.1-8b-instant');
 
     const { text } = await generateText({
-      model: openai('gpt-4o-mini'),
+      model: groq('llama-3.1-8b-instant'),
       prompt: prompt,
     });
 

@@ -1,4 +1,4 @@
-import { openai } from '@ai-sdk/openai';
+import { groq } from '@ai-sdk/groq';
 import { generateText } from 'ai';
 import { 
   SYSTEM_PROMPT, 
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
 
     // 3. Generate AI Response (Non-streaming for maximum reliability)
     const { text } = await generateText({
-      model: openai('gpt-4o-mini'),
+      model: groq('llama-3.1-8b-instant'),
       system: SYSTEM_PROMPT,
       messages,
     });
